@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:if="${#strings.equals(user.role,'USER')}" th:text="${user.name} + ' ' + ${user.surname}"></title>
+    <title th:if="${#strings.equals(user.role,'ANONYMOUS')}" th:text="#{title}"></title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Catchy Carz Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <meta id="lang" th:content="${#locale.language}">
+    <meta id="frsc" th:content="${_csrf.token}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- //for-mobile-apps -->
+    <link th:href="@{/resources/main-style/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/zoomslider.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/menu/styles1.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/component.css}"/>
+    <link th:href="@{/resources/main-style/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all"/>
+
+    <script type="text/javascript" th:src="@{/resources/main-style/js/modernizr-2.6.2.min.js}"></script>
+    <!--/web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,300,300italic,700,400italic'
+          rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<!--/banner-section-->
+<div id="demo-1" style="background: url(https://images.wallpaperscraft.ru/image/macbook_pro_apple_noutbuk_naushniki_stol_98893_2560x1080.jpg);" class="banner-inner">
+    <div class="banner-inner-dott">
+        <div class="header-top">
+            <!-- /header-left -->
+
+            <div class="header-left">
+                <!-- /sidebar -->
+                <div id='cssmenu' style="background: #444444;position: relative;top: -13px">
+                    <ul>
+                        <li class='has-sub' id="0" >
+                            <a style="font-family :'Open Sans';cursor: pointer;color: white" th:text="#{categories}">Categories</a>
+                        </li>
+                        <li><a th:href='@{/}' style="font-family :'Open Sans';color: white"><span th:text="#{title}">Home</span></a></li>
+                        <li class='has-sub' id="null">
+                            <a style="font-family :'Open Sans';cursor: pointer;color: white" th:text="#{language}">Categories</a>
+                            <ul>
+                                <li th:unless="${#strings.equals(#locale.language,'en')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'en')}" th:text="#{en}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'en')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px" th:text="#{en}"></a>
+                                </li>
+                                <li th:unless="${#strings.equals(#locale.language,'ru')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'ru')}" th:text="#{ru}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'ru')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px"  th:text="#{ru}"></a>
+                                </li>
+                                <li th:unless="${#strings.equals(#locale.language,'arm')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'arm')}" th:text="#{arm}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'arm')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px" th:text="#{arm}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li th:if="${#strings.equals(user.role,'USER')}">
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit"  class="navig"
+                                          style="font-family :'Open Sans';position: relative;top: 16px;background:#444444;border-color: #444444;border-style: none;color: white"
+                                          th:text="#{logout}">Login</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- Search -->
+            <div class="search-box" th:if="${#strings.equals(user.role,'ANONYMOUS')}">
+                <!--Login start-->
+                <ul>
+                    <li>
+                        <button id="showRight" class="navig" >
+                            <span style="font-size: 16px" th:text="#{login}"></span>
+                            <img width="20px" th:src="@{/resources/icons/login.png}">
+                        </button>
+                        <div class="cbp-spmenu-push">
+                            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2" style="height: 700px">
+                                <div class="login-inner">
+                                    <div class="login-top" id="slide-login">
+                                        <span id="error-login" style="color: red"></span>
+                                        <form action="" method="post">
+                                            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                            <input type="text" id="username" name="username" class="email" th:placeholder="#{username}"/>
+                                            <input type="password" id="password" name="password" class="password" th:placeholder="#{password}"/>
+                                            <input type="checkbox" id="brand" name="remember-me" value="">
+                                            <label for="brand" ><span></span>           </label>
+                                            <br/>
+                                            <br/>
+                                            <span style="color: #444444" th:text="#{remember.me}"></span>
+                                            <div class="login-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <a id="register_" style="color: #444444;cursor: pointer;font-family:Impact;font-size: 20px" th:text="#{register}">Register</a>
+                                                    </li>
+                                                    <li>
+                                                        <input id="login" type="submit" th:value="#{login}"/>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </form>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="login-top" style="display: none;" id="slide-register">
+                                        <h5 style="color: #1a237e" id="success"></h5>
+                                        <form id="register-form"  enctype="multipart/form-data">
+                                            <input type="hidden" id="c_s" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                                            <span class="fieldError" style="color: red" id="nameError"></span>
+                                            <input type="text" class="reg-input" name="name"  th:placeholder="#{name}"/>
+
+                                            <span class="fieldError" style="color: red" id="surnameError"></span>
+                                            <input type="text" class="reg-input" name="surname" th:placeholder="#{surname}"/>
+
+                                            <span class="fieldError" style="color: red" id="usernameError"></span>
+                                            <input type="text" class="reg-input" name="username" th:placeholder="#{username}"/>
+
+                                            <span class="fieldError" style="color: red" id="passwordError"></span>
+                                            <input type="text" class="reg-input" name="password" th:placeholder="#{password}"/>
+
+                                            <span class="fieldError" style="color: red" id="telephoneError"></span>
+                                            <input type="text" class="reg-input" name="telephone" placeholder="+(374) "/>
+
+                                            <span class="fieldError" style="color: red" id="regionError"></span>
+                                            <label class="custom-select" for="styledSelect1">
+                                                <select  id="styledSelect1" class="active_" name="city.id">
+                                                    <option class="region_" th:text="#{regions}">Regions</option>
+                                                    <th:block th:each="region : ${pageData.regions}">
+                                                        <option  th:value="${region.id}" th:text="${region.name}"></option>
+                                                    </th:block>
+                                            </select>
+                                            </label>
+
+                                            <span class="fieldError" style="color: red" id="imageError"></span>
+                                            <br/>
+                                            <div class="fileUpload btn btn-primary">
+                                                <span th:text="#{image.upload}">Image upload</span>
+                                                <input type="file"  name="image" class="upload" />
+                                            </div>
+
+                                            <div class="login-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <a id="login_" style="color: #444444;cursor: pointer;font-family:Impact;font-size: 20px" th:text="#{login}">Login</a>
+                                                    </li>
+                                                    <li>
+                                                        <input id="register" type="submit" th:value="#{register}"/>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </form>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <script th:src="@{/resources/main-style/js/classie2.js}"></script>
+                        <script>
+                            var menuRight = document.getElementById('cbp-spmenu-s2'),
+                                showRight = document.getElementById('showRight'),
+                                body = document.body;
+
+                            showRight.onclick = function () {
+                                classie.toggle(this, 'active');
+                                classie.toggle(menuRight, 'cbp-spmenu-open');
+                                disableOther('showRight');
+                            };
+
+                            function disableOther(button) {
+                                if (button !== 'showRight') {
+                                    classie.toggle(showRight, 'disabled');
+                                }
+                            }
+                        </script>
+                        <!--Navigation from Right To Left-->
+                    </li>
+                </ul><!--Login end-->
+            </div>
+            <!-- Ad save  -->
+            <div class="search-box" th:if="${#strings.equals(user.role,'USER')}">
+                <!--Login start-->
+                <ul>
+                    <li>
+                        <button id="showRight" class="navig">
+                            <span style="font-size: 16px" th:text="#{settings}">Settings</span>
+                            <img width="20px" th:src="@{/resources/icons/setting.png}">
+                        </button>
+                        <div class="cbp-spmenu-push">
+                            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2" style="height: 700px">
+                                <div class="login-inner">
+                                    <div class="login-top" id="main-settings">
+                                        <h3 th:text="${user.name} + ' ' + ${user.surname}"></h3>
+                                        <br/>
+                                        <br/>
+                                        <div id="update-user-data" class="fileUpload btn btn-primary" style="left: 20px;width: 80%;padding: 20px">
+                                            <span th:text="#{update.my.data}">Update my data</span>
+                                            <input type="submit" name="image" class="upload" />
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <div class="fileUpload btn btn-primary" id="add-new-ad_" style="left: 20px;width: 80%;padding: 20px">
+                                            <span th:text="#{add.new.ad}">Add new ad</span>
+                                            <input type="submit"  name="image" class="upload" />
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <form th:action="@{/user/account/delete}" method="post">
+                                            <input type="hidden" name="userId" th:value="${user.id}">
+                                            <div class="fileUpload btn btn-primary" style="left: 20px;width: 80%;padding: 20px">
+                                                <span th:text="#{delete.my.account}">Delete my account</span>
+                                                <input type="submit" name="image" class="upload" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="login-top" id="update-my-data_" style="display: none">
+                                        <h5 class="_fieldError" style="color: #1a237e" id="success_"></h5>
+                                        <form id="update-form">
+                                            <span class="_fieldError" style="color: red" id="nameError_"></span>
+                                            <input type="text" id="_name" th:value="${user.name}" class="update-input" name="name"  th:placeholder="#{name}"/>
+
+                                            <span class="_fieldError" style="color: red" id="surnameError_"></span>
+                                            <input type="text" id="_surname" th:value="${user.surname}" class="update-input" name="surname" th:placeholder="#{surname}"/>
+
+                                            <span class="_fieldError" style="color: red" id="usernameError_"></span>
+                                            <input type="text" id="_username" th:value="${user.username}" class="update-input" name="username" th:placeholder="#{username}"/>
+
+                                            <span class="_fieldError" style="color: red" id="newPasswordError_"></span>
+                                            <input type="text" id="_newPassword" class="update-input" name="password" th:placeholder="#{new.password}"/>
+
+                                            <p class="_fieldError" style="color: red" id="oldPasswordError_"></p>
+                                            <input type="text" id="_oldPassword" class="update-input" name="password" th:placeholder="#{old.password}"/>
+
+                                            <span class="_fieldError" style="color: red" id="telephoneError_"></span>
+                                            <input type="text" id="_telephone" class="update-input" th:value="${user.telephone}" name="telephone" placeholder="+(374) "/>
+                                            <div class="login-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <a class="back_update" style="color: #444444;cursor: pointer;font-family:Impact;font-size: 20px" th:text="#{back}">
+                                                            Back
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <input type="submit" th:value="#{update}"/>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="login-top" id="add-new-ad" style="display: none">
+                                        <form id="ad-form" method="post">
+                                            <h2 style="color:#3c4a50;" class="addErrors" id="_success"></h2>
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                                            <span class="addErrors" style="color: red" id="titleError"></span>
+                                            <input type="text" id="title" class="ad-input" name="title"  th:placeholder="#{title.ad}"/>
+
+                                            <span class="addErrors" style="color: red" id="descriptionError"></span>
+                                            <textarea id="description" class="ad-input"
+                                                    style="width: 300px;position: relative;border-color: #444444;color: #444444;border-style: groove"
+                                                    th:placeholder="#{description}"></textarea>
+
+                                            <span class="addErrors" style="color: red" id="priceError"></span>
+                                            <input type="text" id="price" class="ad-input" name="price" th:placeholder="#{price}"/>
+
+                                            <span class="addErrors" style="color: red" id="categoryError"></span>
+                                            <label class="custom-select" for="styledSelect1">
+                                                <select  id="styledSelect1"  name="category.id">
+                                                    <option value="-1" style="font-size: 15px" th:text="#{categories}">Categories</option>
+                                                    <th:block th:each="category : ${pageData.categories}">
+                                                        <option th:if="${#strings.equals(#locale.language,'en')}" th:value="${category.id}" th:text="${category.name}"></option>
+                                                        <option th:if="${#strings.equals(#locale.language,'ru')}" th:value="${category.id}" th:text="${category.nameRu}"></option>
+                                                        <option th:if="${#strings.equals(#locale.language,'arm')}" th:value="${category.id}" th:text="${category.nameArm}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </label>
+
+                                            <div class="login-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <a class="back_ad" style="color: #444444;cursor: pointer;font-family:Impact;font-size: 20px" th:text="#{back}">
+                                                            Back
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <input type="submit" th:value="#{next}"/>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="login-top" id="attribute-div_" style="display: none">
+                                        <form id="attribute-form" method="post" enctype="multipart/form-data" >
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                                            <div id="attribute-data">
+
+                                            </div>
+
+                                            <span class="addErrors" style="color: red" id="imageError"></span>
+                                            <br/>
+                                            <div class="fileUpload btn btn-primary">
+                                                <span th:text="#{image.upload}">Image upload</span>
+                                                <input type="file"  name="images" class="upload" />
+                                            </div>
+                                            <br/>
+                                            <div class="fileUpload btn btn-primary">
+                                                <span th:text="#{image.upload}">Image upload</span>
+                                                <input type="file"  name="images" class="upload" />
+                                            </div>
+                                            <div class="login-bottom">
+                                                <ul>
+                                                    <li>
+                                                        <a class="back_attribute" style="color: #444444;cursor: pointer;font-family:Impact;font-size: 20px" th:text="#{back}">
+                                                            Back
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <input type="submit" th:value="#{add}"/>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <script th:src="@{/resources/main-style/js/classie2.js}"></script>
+                        <script>
+                            var menuRight = document.getElementById('cbp-spmenu-s2'),
+                                showRight = document.getElementById('showRight'),
+                                body = document.body;
+
+                            showRight.onclick = function () {
+                                classie.toggle(this, 'active');
+                                classie.toggle(menuRight, 'cbp-spmenu-open');
+                                disableOther('showRight');
+                            };
+
+                            function disableOther(button) {
+                                if (button !== 'showRight') {
+                                    classie.toggle(showRight, 'disabled');
+                                }
+                            }
+                        </script>
+                        <!--Navigation from Right To Left-->
+                    </li>
+                </ul><!--Login end-->
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <!--banner-info-->
+        <div class="banner-info">
+            <h1><a style="cursor: pointer" th:text="#{ads.service}">Ads service</a></h1>
+            <h2></h2>
+            <p></p>
+            <p></p>
+            <p></p>
+
+        </div>
+        <!--//banner-info-->
+    </div>
+</div>
+<!-- //get-->
+<div class="service-breadcrumb">
+    <div class="container">
+        <div class="wthree_service_breadcrumb_left">
+            <ul>
+                <li>
+                    <h2 th:if="${#strings.equals(#locale.language,'en')}" th:text="#{result.by.search} + ' ' + ${category.name}">category</h2>
+                    <h2 th:if="${#strings.equals(#locale.language,'ru')}" th:text="#{result.by.search} + ' ' + ${category.nameRu}">category</h2>
+                    <h2 th:if="${#strings.equals(#locale.language,'arm')}" th:text="#{result.by.search} + ' ' + ${category.nameArm}">category</h2>
+                </li>
+            </ul>
+        </div>
+        <div class="wthree_service_breadcrumb_right"
+             style="position: relative;top: -30px">
+            <form action="/search" role="search" class="search-form">
+                <input type="submit" value="" class="search-submit">
+                <input type="search" name="name" class="search-text" th:placeholder="#{search} + '...'" autocomplete="off">
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!--//breadcrumb-->
+<div class="tips w3l">
+    <div class="container">
+        <div class="col-md-9 tips-info">
+            <th:block th:each="adDetail : ${pageData.adDetails}">
+                <div class="news-grid">
+                    <div class="news-img up">
+                        <img height="267px" width="220px" th:src="@{/resources/{name}(name = ${adDetail.ad.image})}" alt=" " class="img-responsive">
+                    </div>
+                    <div class="news-text coming">
+                        <h4><a th:href="@{/ad/{id}(id = ${adDetail.ad.id})}"
+                               style="color: black;font-size: 19px" th:text="${adDetail.ad.title}">Title</a></h4>
+                        <br/>
+                        <h5 th:text="#{created.date} + ': ' + ${#dates.format(adDetail.ad.createdDate,'yyyy-MM-dd HH:mm')}">
+                            created date
+                        </h5>
+                        <p class="news" th:text="#{price} + ': ' + ${adDetail.ad.price}">
+                            Price
+                        </p>
+                        <p class="news" th:text="#{region} + ': ' + ${adDetail.ad.user.city.region.name} + '/' + ${adDetail.ad.user.city.name}">
+                            region
+                        </p>
+                        <a th:if="${#strings.equals(#locale.language,'en')}" style="color: rgba(50,37,255,0.98)"
+                           th:href="@{/category/{id}(id = ${adDetail.ad.category.id})}" th:text="${adDetail.ad.category.name}">
+                            category
+                        </a>
+                        <a th:if="${#strings.equals(#locale.language,'ru')}" style="color: rgba(50,37,255,0.98)"
+                           th:href="@{/category/{id}(id = ${adDetail.ad.category.id})}" th:text="${adDetail.ad.category.nameRu}">
+                            category
+                        </a>
+                        <a th:if="${#strings.equals(#locale.language,'arm')}" style="color: rgba(50,37,255,0.98)"
+                           th:href="@{/category/{id}(id = ${adDetail.ad.category.id})}" th:text="${adDetail.ad.category.nameArm}">
+                            category
+                        </a>
+                        <!--  <a href="price.html" class="read hvr-shutter-in-horizontal">Check on-road price</a>
+                        -->
+                        <ul class="p-t" th:if="${#strings.equals(user.role,'ANONYMOUS')} or (${user.id} eq ${adDetail.ad.user.id})">
+                            <li>
+                                <a style="text-decoration: none">
+                                    <img th:src="@{/resources/icons/like.png}">
+                                </a>
+                                <span th:id="${adDetail.ad.id} + 'countLikes'" th:text="${adDetail.likes}"></span>
+                            </li>
+                            <li>
+                                <a style="position: relative;top: 3px;text-decoration: none">
+                                    <img th:src="@{/resources/icons/dislike.png}">
+                                </a>
+                                <span th:id="${adDetail.ad.id} + 'countDislikes'" th:text="${adDetail.dislikes}"></span>
+                            </li>
+                        </ul>
+                        <ul class="p-t" th:if="${#strings.equals(user.role,'USER')} and (${user.id} ne ${adDetail.ad.user.id})">
+                            <li>
+                                <a class="like" th:id="${adDetail.ad.id} + 'l'" th:title="${adDetail.ad.id}" style="cursor: pointer;text-decoration: none">
+                                    <img th:if="${adDetail.like}" th:src="@{/resources/icons/like_active.png}">
+                                    <img th:unless="${adDetail.like}" th:src="@{/resources/icons/like.png}">
+                                </a>
+                                <span th:id="${adDetail.ad.id} + 'countLikes'" th:text="${adDetail.likes}"></span>
+                            </li>
+                            <li>
+                                <a class="dislike" th:id="${adDetail.ad.id} + 'd'" th:title="${adDetail.ad.id}" style="cursor: pointer;position: relative;top: 3px;text-decoration: none">
+                                    <img th:if="${adDetail.dislike}" th:src="@{/resources/icons/dislike_active.png}">
+                                    <img th:unless="${adDetail.dislike}" th:src="@{/resources/icons/dislike.png}">
+                                </a>
+                                <span th:id="${adDetail.ad.id} + 'countDislikes'" th:text="${adDetail.dislikes}"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </th:block>
+
+            <div class="blog-pagenat">
+                <ul>
+                    <li th:if="${page eq 0}"><a class="frist" th:text="#{back}">Prev</a></li>
+                    <li th:unless="${page eq 0}">
+                        <a class="frist" th:href="@{${#request.getRequestURI()}(page=${page})}" th:text="#{back}">Prev</a>
+                    </li>
+                    <th:block th:each="p : ${pageData.pages}">
+
+                        <li th:if="${pStat.index} eq ${page}">
+                            <a style="background: rgba(255,93,97,0.98);color: white"  th:text="${page + 1}">pageNumber</a>
+                        </li>
+                        <li th:unless="${pStat.index} eq ${page}">
+                            <a th:href="@{${#request.getRequestURI()}(page=${pStat.index + 1})}" th:text="${pStat.index + 1}">pageNumber</a>
+                        </li>
+
+                    </th:block>
+                    <li th:if="(${page+1} eq ${pageData.pages.length}) or (${page+1} > ${pageData.pages.length})">
+                        <a class="last" th:text="#{next}">Next</a>
+                    </li>
+                    <li th:unless="(${page+1} eq ${pageData.pages.length}) or (${page+1} > ${pageData.pages.length})">
+                        <a class="last" th:href="@{${#request.getRequestURI()}(page=${page + 2})}" th:text="#{next}">Next</a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3 advice-right w3-agile">
+            <div class="blo-top1 w3l" >
+                <div class="tech-btm">
+                    <h4 th:text="#{popular.ad}">popular ads</h4>
+                    <th:block th:each="ad : ${pageData.popularAds}">
+                        <div class="blog-grids">
+                            <div class="blog-grid-left" style="width:70px;height: 70px">
+                                <img  th:src="@{/resources/{name}(name = ${ad.image})}" class="img-responsive" alt="">
+                            </div>
+                            <div class="blog-grid-right">
+                                <h5><a th:href="@{/ad/{id}(id = ${ad.id})}" th:text="${ad.title}">Title</a></h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+        <div class="footer-logo animated wow slideInUp" data-wow-delay=".5s">
+            <h2><a th:text="#{ads.service}">Ads Service<span></span></a></h2>
+        </div>
+        <div class="copy-right animated wow slideInUp" data-wow-delay=".5s">
+            <p th:text="'&copy 2018 .' + #{ads.service}">&copy 2018 .A D S_S E R V I C E </p>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/resources/main-style/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/main-style/js/jquery.flexisel.js}"></script>
+<script th:src="@{/resources/main-style/js/bootstrap.js}"></script>
+<script th:if="${#strings.equals(user.role,'ANONYMOUS')}" th:src="@{/resources/js/login.js}"></script>
+<script th:if="${#strings.equals(user.role,'ANONYMOUS')}" th:src="@{/resources/js/register.js}"></script>
+<script  th:src="@{/resources/js/category.js}"></script>
+<script th:if="${#strings.equals(user.role,'USER')}" th:src="@{/resources/js/update-user-data.js}"></script>
+<script th:if="${#strings.equals(user.role,'USER')}" th:src="@{/resources/js/back.js}"></script>
+<script th:if="${#strings.equals(user.role,'USER')}" th:src="@{/resources/js/add-new-ad.js}"></script>
+<script th:if="${#strings.equals(user.role,'USER')}" th:src="@{/resources/js/likesAndDislikes.js}"></script>
+</body>
+</html>

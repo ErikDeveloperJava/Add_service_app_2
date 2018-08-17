@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Catchy Carz Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <meta id="lang" th:content="${#locale.language}">
+    <meta id="frsc" th:content="${_csrf.token}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- //for-mobile-apps -->
+    <link th:href="@{/resources/main-style/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/zoomslider.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/table_style/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/menu/styles1.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/main-style/css/component.css}"/>
+    <link th:href="@{/resources/main-style/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all"/>
+
+    <script type="text/javascript" th:src="@{/resources/main-style/js/modernizr-2.6.2.min.js}"></script>
+    <!--/web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,300,300italic,700,400italic'
+          rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<!--/banner-section-->
+<div id="demo-1" style="background: url(https://images.wallpaperscraft.ru/image/macbook_pro_apple_noutbuk_naushniki_stol_98893_2560x1080.jpg);" class="banner-inner">
+    <div class="banner-inner-dott">
+        <div class="header-top">
+            <!-- /header-left -->
+
+            <div class="header-left">
+                <!-- /sidebar -->
+                <div id='cssmenu' style="background: #444444;position: relative;top: -13px">
+                    <ul>
+                        <li><a th:href='@{/}' style="font-family :'Open Sans';color: white"><span th:text="#{title}">Home</span></a></li>
+                        <li><a th:href='@{/admin/category/add}' style="font-family :'Open Sans';color: white"><span th:text="#{add.category}">Add category</span></a></li>
+                        <li class='has-sub' id="null">
+                            <a style="font-family :'Open Sans';cursor: pointer;color: white" th:text="#{language}">Languages</a>
+                            <ul>
+                                <li th:unless="${#strings.equals(#locale.language,'en')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'en')}" th:text="#{en}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'en')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px" th:text="#{en}"></a>
+                                </li>
+                                <li th:unless="${#strings.equals(#locale.language,'ru')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'ru')}" th:text="#{ru}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'ru')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px"  th:text="#{ru}"></a>
+                                </li>
+                                <li th:unless="${#strings.equals(#locale.language,'arm')}">
+                                    <a style="font-size: 16px" th:href="@{${#request.getRequestURI()}(lang = 'arm')}" th:text="#{arm}"></a>
+                                </li>
+                                <li th:if="${#strings.equals(#locale.language,'arm')}">
+                                    <a style="cursor: pointer;color: #ac2925;font-size: 16px" th:text="#{arm}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit"  class="navig"
+                                        style="font-family :'Open Sans';position: relative;top: 16px;background:#444444;border-color: #444444;border-style: none;color: white"
+                                        th:text="#{logout}">Login</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //get-->
+<div class="service-breadcrumb">
+    <div class="container">
+        <div class="wthree_service_breadcrumb_left">
+            <ul>
+                <li>
+                    <h1 th:text="#{all.users}">New ads</h1>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!--//breadcrumb-->
+<table class="container" style="width: 1200px">
+    <thead>
+    <tr>
+        <th><h1>Id</h1></th>
+        <th><h1 th:text="#{name}">Name</h1></th>
+        <th><h1 th:text="#{surname}">Surname</h1></th>
+        <th><h1 th:text="#{username}">Username</h1></th>
+        <th><h1 th:text="#{telephone}">Telephone</h1></th>
+        <th><h1 th:text="#{region} + ' / ' + #{city}">Telephone</h1></th>
+        <th><h1 th:text="#{image}">Image</h1></th>
+        <th><h1 th:text="#{register.date}">Register date</h1></th>
+        <th><h1 th:text="#{delete}">Delete</h1></th>
+    </tr>
+    </thead>
+    <tbody style="color: white">
+    <th:block th:each=" u : ${pageData.users}" th:unless="${u.id} eq ${user.id}">
+        <tr>
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.name}"></td>
+            <td th:text="${u.surname}"></td>
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.telephone}"></td>
+            <td th:text="${u.city.region.name} + ' / ' + ${u.city.name}"></td>
+            <td>
+                <img width="100px" height="70px" th:src="@{/resources/{name}(name=${u.image})}">
+            </td>
+            <td th:text="${#dates.format(u.registerDate,'yyyy-MM-dd HH:mm')}"></td>
+            <td class="delete-user" th:id="${u.id}" style="cursor: pointer">
+                <a th:text="#{delete}">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<div class="tips w3l">
+    <div class="container">
+        <div class="col-md-9 tips-info">
+            <div class="blog-pagenat">
+                <ul>
+                    <li th:if="${page eq 0}"><a class="frist" th:text="#{back}">Prev</a></li>
+                    <li th:unless="${page eq 0}">
+                        <a class="frist" th:href="@{${#request.getRequestURI()}(page=${page})}" th:text="#{back}">Prev</a>
+                    </li>
+                    <th:block th:each="p : ${pageData.pages}">
+
+                        <li th:if="${pStat.index} eq ${page}">
+                            <a style="background: rgba(255,93,97,0.98);color: white"  th:text="${page + 1}">pageNumber</a>
+                        </li>
+                        <li th:unless="${pStat.index} eq ${page}">
+                            <a th:href="@{${#request.getRequestURI()}(page=${pStat.index + 1})}" th:text="${pStat.index + 1}">pageNumber</a>
+                        </li>
+
+                    </th:block>
+                    <li th:if="(${page+1} eq ${pageData.pages.length}) or (${page+1} > ${pageData.pages.length})">
+                        <a class="last" th:text="#{next}">Next</a>
+                    </li>
+                    <li th:unless="(${page+1} eq ${pageData.pages.length}) or (${page+1} > ${pageData.pages.length})">
+                        <a class="last" th:href="@{${#request.getRequestURI()}(page=${page + 2})}" th:text="#{next}">Next</a>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <!--
+        <div class="col-md-3 advice-right w3-agile">
+
+            <div class="blo-top" id="message-main">
+                <div class="tech-btm">
+                    <div class="name">
+                        <form>
+                            <input style="padding: 30px;width: 200px" id="message-input" type="submit" value="">
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blo-top1" id="show-all-messages" style="display:none;">
+                <div class="agileits_twitter_posts">
+                    <a id="back-message-user" style="cursor: pointer;position: relative;left: 100px" th:text="#{back}"></a>
+                    <h4 th:text="#{messages}">Messages</h4>
+                    <ul id="message-ul">
+                    </ul>
+                    <div class="blo-top">
+                        <div class="tech-btm">
+                            <div class="name">
+                                <h4 align="center" id="send-message-text"></h4>
+                                <form id="message-form">
+                                    <input type="hidden" id="userId" >
+                                    <textarea id="message" style="position:relative;padding: 30px;left: 11px" th:placeholder="#{write.your.message}"></textarea>
+                                    <input style="padding: 30px;width: 200px"  type="submit" th:value="#{send.message}">
+                                </form>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="message-user" class="blo-top1 w3l" style="display: none">
+                <div class="tech-btm">
+                    <a id="back-message" style="cursor: pointer;position: relative;left: 100px" th:text="#{back}"></a>
+                    <h4 id="message-header" th:text="#{messages}"></h4>
+                    <div id="message-div">
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+        <div class="footer-logo animated wow slideInUp" data-wow-delay=".5s">
+            <h2><a th:text="#{ads.service}">Ads Service<span></span></a></h2>
+        </div>
+        <div class="copy-right animated wow slideInUp" data-wow-delay=".5s">
+            <p th:text="'&copy 2018 .' + #{ads.service}">&copy 2018 .A D S_S E R V I C E </p>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/resources/main-style/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/main-style/js/jquery.flexisel.js}"></script>
+<script th:src="@{/resources/main-style/js/bootstrap.js}"></script>
+<script th:src="@{/resources/js/delete-user.js}"></script>
+</body>
+</html>

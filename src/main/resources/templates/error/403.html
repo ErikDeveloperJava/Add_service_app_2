@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>error 403</title>
+    <link rel="stylesheet" th:href="@{/resources/error_page/css/main.css}" />
+</head>
+<body>
+<div class="overlay"></div>
+<div class="terminal">
+    <h1>Error <span class="errorcode">403</span></h1>
+    <p class="output" th:text="#{error_text}">error text</p>
+    <p class="output" th:text="#{click}">Please try <a th:href="@{/}" th:text="#{click_text}">this link</a> </p>
+</div>
+</body>
+</html>
