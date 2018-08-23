@@ -1,1 +1,1 @@
-Project on Spring Boot
+Ad service app on Spring Boot
